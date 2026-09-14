@@ -20,21 +20,21 @@ makes this dataset relevant in such exploration.
 
 # 1. Which zip code had the greatest level of natural gas consumption in 2010?
 
-#max_consumption = float('-inf')
-#max_zipcode = ""
-#for row in naturalgas:
-#    try:
-#        current_val = float(row[' Consumption (therms) '].replace(',', ''))        
-#        if current_val > max_consumption:
-#            max_consumption = current_val
-#            max_zipcode = row["Zip Code"].strip()[:5]
-#    except (ValueError, KeyError):
-#        continue
+max_consumption = float('-inf')
+max_zipcode = ""
+for row in naturalgas:
+    try:
+        current_val = float(row[' Consumption (therms) '].replace(',', ''))        
+        if current_val > max_consumption:
+            max_consumption = current_val
+            max_zipcode = row["Zip Code"].strip()[:5]
+    except (ValueError, KeyError):
+        continue
 
-#print(f"The greatest natural gas consumption is: {max_consumption} therms in zip code, {max_zipcode}.")
+print(f"The greatest natural gas consumption is: {max_consumption} therms in zip code, {max_zipcode}.")
 
 #OUTPUT:
-#The greatest natural gas consumption is: 42747652.0 therms in zip code, 10314.
+The greatest natural gas consumption is: 42747652.0 therms in zip code, 10314.
 
 Why the data structure supports this question:
 This works because the dataset has a column (Consumption (therms)) which counts
@@ -43,22 +43,22 @@ we are able to identify the maximum/greatest value.
 
 # 2. Which zip code had the least level of natural gas consumption in 2010?
 
-#min_consumption = float('inf')
-#min_zipcode = ""
+min_consumption = float('inf')
+min_zipcode = ""
 
-#for row in naturalgas:
-#    try:
-#        current_val = float(row[' Consumption (therms) '].replace(',', ''))        
-#        if current_val < min_consumption:
-#            min_consumption = current_val
-#            min_zipcode = row["Zip Code"].strip()[:5]
-#    except (ValueError, KeyError):
-#        continue
+for row in naturalgas:
+    try:
+        current_val = float(row[' Consumption (therms) '].replace(',', ''))        
+        if current_val < min_consumption:
+            min_consumption = current_val
+            min_zipcode = row["Zip Code"].strip()[:5]
+    except (ValueError, KeyError):
+        continue
 
-#print(f"The least natural gas consumption is: {min_consumption} therms in zip code, {min_zipcode}.")
+print(f"The least natural gas consumption is: {min_consumption} therms in zip code, {min_zipcode}.")
 
 #OUTPUT:
-#The least natural gas consumption is: 1.0 therms in zip code, 10469.
+The least natural gas consumption is: 1.0 therms in zip code, 10469.
 
 
 Why the data structure supports this question:
@@ -69,51 +69,40 @@ through the column's values (iterating through these records using a for loop) t
 identify the minimum/least value for consumption usage. 
 
 # 3. How many of these zip codes are in Manhattan versus the Bronx?
-# NOTE***: Manhattan zip code = 10001–10282 ; Bronx zip code = 10451–10475
+NOTE***: Manhattan zip code = 10001–10282 ; Bronx zip code = 10451–10475
 
-#manhattan_zips = []
-#bronx_zips = []
+manhattan_zips = []
+bronx_zips = []
 
-#for row in naturalgas:
-#    try:
-#        # Clean and parse the consumption value
-#        raw_val = row[' Consumption (therms) '].strip()
+for row in naturalgas:
+    try:
+        raw_val = row[' Consumption (therms) '].strip()
+        current_val = float(raw_val.replace(',', ''))   
+        if current_val > 1000:
+            zip_str = row['Zip Code'].strip()
+            cleanzip = zip_str[:5]
+            zip_num = int(cleanzip)
+            if 10001 <= zip_num <= 10282:
+                if zip_num not in manhattan_zips:
+                    manhattan_zips.append(zip_num)                    
+            elif 10451 <= zip_num <= 10475:
+                if zip_num not in bronx_zips:
+                    bronx_zips.append(zip_num)     
+    except (ValueError, KeyError):
+        continue
 
-#        remove commas in the therms vals
-#        current_val = float(raw_val.replace(',', ''))
-        
-#        if current_val > 1000:
-#            zip_str = row['Zip Code'].strip()
-#            cleanzip = zip_str[:5]
-#            zip_num = int(cleanzip)
-            
-#            # Check Manhattan range: 10001 to 10282
-#            if 10001 <= zip_num <= 10282:
-#                if zip_num not in manhattan_zips:
-#                    manhattan_zips.append(zip_num)
-                    
-#            # Check Bronx range: 10451 to 10475
-#            elif 10451 <= zip_num <= 10475:
-#                if zip_num not in bronx_zips:
-#                    bronx_zips.append(zip_num)
-            
-#    except (ValueError, KeyError):
-#        continue
+print(f"Unique Manhattan ZIP codes (> 1000 therms): {len(manhattan_zips)}")
+print(f"Unique Bronx ZIP codes (> 1000 therms): {len(bronx_zips)}")
 
-# Display the final counts
-#print(f"Unique Manhattan ZIP codes (> 1000 therms): {len(manhattan_zips)}")
-#print(f"Unique Bronx ZIP codes (> 1000 therms): {len(bronx_zips)}")
-
-#difference_ManhattanBronx = abs(len(manhattan_zips) - len(bronx_zips))
-#print(f"The difference between the amount of Manhattan and Bronx zip codes with greater than 1000 therms is {difference_ManhattanBronx}.")
+difference_ManhattanBronx = abs(len(manhattan_zips) - len(bronx_zips))
+print(f"The difference between the amount of Manhattan and Bronx zip codes with greater than 1000 therms is {difference_ManhattanBronx}.")
 
 #OUTPUT: 
-#Unique Manhattan ZIP codes (> 1000 therms): 47
-#Unique Bronx ZIP codes (> 1000 therms): 25
-#The difference between the amount of Manhattan and Bronx zip codes with greater than 1000 therms is 22.
+Unique Manhattan ZIP codes (> 1000 therms): 47
+Unique Bronx ZIP codes (> 1000 therms): 25
+The difference between the amount of Manhattan and Bronx zip codes with greater than 1000 therms is 22.
 
 Why the data structure supports this question:
-
 The data structure supports this question as we can evaluate the columns, Zip Code and Consumption (therms)
 simultaneously, where I can filter for the specific consumption threshold (i.e., greater than 1000 therms)
 and identifying the Zip code which matches that condition. Apart from the program,
@@ -122,7 +111,7 @@ geographic regions for contextualization.
 
 
 
-#What the Data Cannot Answer
+## What the Data Cannot Answer
 
 
 The dataset alone cannot answer: "What type of commercial buildings showcase highest amounts of natural gas consumption?". 
