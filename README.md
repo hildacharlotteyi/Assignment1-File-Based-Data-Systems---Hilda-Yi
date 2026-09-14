@@ -68,7 +68,7 @@ a column that measures the amount of natural gas consumption, we are able to loo
 through the column's values (iterating through these records using a for loop) to 
 identify the minimum/least value for consumption usage. 
 
-# 3. How many of these zip codes are in Manhattan versus the Bronx?
+# 3. How many of the zip codes with greater than 1000 therms are in Manhattan versus the Bronx?
 NOTE***: Manhattan zip code = 10001–10282 ; Bronx zip code = 10451–10475
 
 manhattan_zips = []
