@@ -119,8 +119,10 @@ This is because the dataset does not provide further details on what buildings t
 office buildings, medical facilities), which makes contextualizing the consumption rate to be difficult. 
 
 It also does not answer when the consumption amount peaked or decreased within the year of 2010, so
-questioning whether the consumption rates move between seasons will be difficult to answer. The data also
+questioning whether the consumption rates move between seasons will be impossible only with this dataset. The data also
 can't tell us what the natural gas is being used for, as the data is limited to just the amount of therms 
-recorded and the general categories of buildings alongside their zip codes. 
+recorded and the general categories of buildings alongside their zip codes. Thus, we cannot 
+assume a similar or specific cause for the consumption levels among these buildings, even if 
+they may fall within the same categories (i.e., even if two buildings are both commercial buildings with similar amount of natural gas consumption, we cannot assume it was of similar reasons/causes).
 
 
